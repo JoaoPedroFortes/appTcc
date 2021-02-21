@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "904834741555",
+    "project_id": "apptcc-69b94",
+    "storage_bucket": "apptcc-69b94.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:904834741555:android:db77eab20df7c77cf5fa46",
+        "android_client_info": {
+          "package_name": "com.meuapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "904834741555-0miaed99pbe7tm2gv50qg20q5k1in2cr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQn9AeqV4TELbzBqPk1rXXOfiv-vCZ1yI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "904834741555-0miaed99pbe7tm2gv50qg20q5k1in2cr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "904834741555-gl6dd6aie06jkn3ppumnjp4969mcto1s.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ufms.meuApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

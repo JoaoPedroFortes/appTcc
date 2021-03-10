@@ -20,7 +20,7 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-
+import * as RNLocalize from "react-native-localize";
 
 import {
   Header,
@@ -71,18 +71,19 @@ function SearchScreen({ navigation }) {
     name: 'pt-br',
     config: brLocale
   }
-  const now = moment().tz('America/Sao_Paulo').format();
+  const now = moment().tz(RNLocalize.getTimeZone()).format();
   console.log('hoje e ' + now)
-  const [dia, setDia] = useState(0);
+  const [dia, setDia] = useState('');
   const selected = date => {
     setDia(date)
   }
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#f1f1f1' }}>
+    
       <View style={{ minHeight: 1, minWidth: 1, flex: 1 }}>
         <CalendarStrip
           scrollable
-          style={{ height: 110, paddingTop: 20, paddingLeft: 20, paddingBottom: 8, width: 400 }}
+          style={{ height: 110, paddingTop: 20, paddingLeft: 20, paddingBottom: 8, width: 400}}
           calendarColor={azulClaro}
           calendarHeaderStyle={{ color: 'black' }}
           dateNumberStyle={{ color: 'black' }}
@@ -97,9 +98,9 @@ function SearchScreen({ navigation }) {
         </View>
       </View>
       <View style={styles.menu}>
-        <TouchableOpacity onPress={() => navigation.navigate('Search')}><Text>search</Text></TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Search')}><View><Image source={require('./assets/icons/search.png')} /></View></TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Home')}><Text>home</Text></TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Details')}><Text color="white">edit</Text></TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Details')}><View><Image source={require('./assets/icons/profile.png')} /></View></TouchableOpacity>
 
       </View>
     </View>

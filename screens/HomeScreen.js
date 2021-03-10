@@ -72,9 +72,9 @@ export default function HomeScreen({ navigation }) {
                 </View>
             </View>
             <View style={styles.menu}>
-                <TouchableOpacity onPress={() => navigation.navigate('Search')} ><Text>search</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Search')} ><Image source={require('../assets/icons/search.png')} /></TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate('Home')}><Text>home</Text></TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Details')}><Text>edit</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Details')}><View><Image source={require('../assets/icons/profile.png')} /></View></TouchableOpacity>
 
             </View>
         </View>

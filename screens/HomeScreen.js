@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 
 
+
 import {
     Header,
     LearnMoreLinks,
@@ -24,6 +25,9 @@ import {
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
+
+
+const azulClaro = "#2196f3";
 
 export default function HomeScreen({ navigation }) {
     return (
@@ -121,7 +125,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         width: '100%',
         height: 55,
-        backgroundColor: "yellow",
+        backgroundColor: azulClaro,
 
         borderTopWidth: 1,
 

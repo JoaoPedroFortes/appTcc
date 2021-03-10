@@ -46,7 +46,7 @@ const brLocale = require('moment/src/locale/pt-br')
 
 moment().locale('pt-br');
 
-
+const azulClaro = "#2196f3";
 
 
 
@@ -83,7 +83,7 @@ function SearchScreen({ navigation }) {
         <CalendarStrip
           scrollable
           style={{ height: 110, paddingTop: 20, paddingLeft: 20, paddingBottom: 8, width: 400 }}
-          calendarColor={'yellow'}
+          calendarColor={azulClaro}
           calendarHeaderStyle={{ color: 'black' }}
           dateNumberStyle={{ color: 'black' }}
           dateNameStyle={{ color: 'black' }}
@@ -105,7 +105,26 @@ function SearchScreen({ navigation }) {
     </View>
   )
 }
-
+/*
+ saveFireBase(){
+      this.database
+          .filter(card => card.selected===true)
+          .forEach(selectedCard => {
+            nando
+                .child('collection')
+                .child(selectedCard.id)
+                .set(selectedCard)
+            console.log(selectedCard.name)
+          })
+        alert('saved ')
+    },
+       .child('collection')
+        .once('value', a =>
+            this.myFirebaseDB = Object.values( a.val() )
+        )
+    
+    
+    */
 const Stack = createStackNavigator();
 
 function App() {
@@ -117,10 +136,10 @@ function App() {
           gestureDirection: "horizontal",
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
         }}>
-        <Stack.Screen name="Login" options={{headerShown:false}} component={LoginScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Search" component={SearchScreen} />
-        <Stack.Screen name="Details" component={DetailsScreen} />
+        <Stack.Screen name="Login" options={{ headerShown: false }} component={LoginScreen} />
+        <Stack.Screen name="Home" options={{ headerShown: false }} component={HomeScreen} />
+        <Stack.Screen name="Search" options={{ headerShown: false }} component={SearchScreen} />
+        <Stack.Screen name="Details" options={{ headerShown: false }} component={DetailsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -143,11 +162,6 @@ const styles = StyleSheet.create({
   sectionContainer: {
     marginTop: 32,
     paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
   },
   container: { flex: 1 },
   sectionDescription: {
@@ -173,7 +187,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: '100%',
     height: 55,
-    backgroundColor: "#ADBF21",
+    backgroundColor: azulClaro,
 
     borderTopWidth: 1,
 

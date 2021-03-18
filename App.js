@@ -18,6 +18,7 @@ import {
   StatusBar,
   Touchable,
   Image,
+  Dimensions,
   TouchableOpacity,
 } from 'react-native';
 import * as RNLocalize from "react-native-localize";
@@ -41,30 +42,17 @@ import 'moment/locale/pt-br';
 
 import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
+import DetailsScreen from './screens/DetailsScreen';
 
 const brLocale = require('moment/src/locale/pt-br')
 
 moment().locale('pt-br');
 
 const azulClaro = "#2196f3";
+const width = Dimensions.get('window').width;
 
 
 
-function DetailsScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Details Screen</Text>
-
-      <View style={styles.menu}>
-        <TouchableOpacity onPress={() => navigation.navigate('Search')}><Text>search</Text></TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Home')}><Text>home</Text></TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Details')}><Text color="white">edit</Text></TouchableOpacity>
-
-      </View>
-    </View>
-
-  );
-}
 
 function SearchScreen({ navigation }) {
   const locale = {
@@ -79,11 +67,17 @@ function SearchScreen({ navigation }) {
   }
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#f1f1f1' }}>
-    
+      <View style={styles.header}>
+
+        <Text style={styles.titulo}>Te-vi</Text>
+        <View style={styles.profileIcon}>
+          <TouchableOpacity onPress={() => navigation.navigate('Details')}><View><Image source={require('./assets/jp.jpeg')} style={{ width: 50, height: 50, borderRadius:100 }} /></View></TouchableOpacity>
+        </View>
+      </View>
       <View style={{ minHeight: 1, minWidth: 1, flex: 1 }}>
         <CalendarStrip
           scrollable
-          style={{ height: 110, paddingTop: 20, paddingLeft: 20, paddingBottom: 8, width: 400}}
+          style={{ height: 110, paddingTop: 20, paddingLeft: 20, paddingBottom: 8, width: width }}
           calendarColor={azulClaro}
           calendarHeaderStyle={{ color: 'black' }}
           dateNumberStyle={{ color: 'black' }}
@@ -97,12 +91,7 @@ function SearchScreen({ navigation }) {
           <Text>{dia.toString()}</Text>
         </View>
       </View>
-      <View style={styles.menu}>
-        <TouchableOpacity onPress={() => navigation.navigate('Search')}><View><Image source={require('./assets/icons/search.png')} /></View></TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Home')}><Text>home</Text></TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Details')}><View><Image source={require('./assets/icons/profile.png')} /></View></TouchableOpacity>
 
-      </View>
     </View>
   )
 }
@@ -150,6 +139,30 @@ export default App;
 
 
 const styles = StyleSheet.create({
+
+  header: {
+    width: width,
+    flexWrap: 'nowrap',
+    paddingBottom: 20,
+    backgroundColor:"#2196f3",
+    borderBottomWidth:1,
+  },
+
+  titulo: {
+    fontSize: 35,
+    color: Colors.white,
+    paddingTop:10,
+    paddingLeft:10
+  },
+
+  profileIcon: {
+    alignSelf: 'flex-end',
+    height: 40,
+    width: 50,
+    marginTop: -40,
+    right:10
+  },
+
   scrollView: {
     backgroundColor: Colors.lighter,
   },
@@ -174,22 +187,14 @@ const styles = StyleSheet.create({
   highlight: {
     fontWeight: '700',
   },
-  footer: {
 
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
   menu: {
     paddingHorizontal: 15,
     bottom: 0,
     position: 'absolute',
     width: '100%',
     height: 55,
-    backgroundColor: azulClaro,
-
+    backgroundColor: Colors.white,
     borderTopWidth: 1,
 
     flexDirection: 'row',

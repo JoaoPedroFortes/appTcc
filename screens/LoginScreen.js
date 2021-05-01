@@ -39,7 +39,7 @@ export default function LoginScreen({ navigation }) {
                 <TextInput onChangeText={password => setPassword(password)} style={styles.inputs} placeholder=" Digite aqui sua senha" placeholderTextColor="gray" secureTextEntry></TextInput>
             </View>
             <Text>{password}</Text>
-            <TouchableOpacity style={styles.loginBtn} onPress={() => navigation.navigate('Search')} >
+            <TouchableOpacity style={styles.loginBtn} onPress={() => auth(email, password)} >
                 <Text style={styles.loginText}>Entrar</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.cadBtn}>
@@ -51,6 +51,26 @@ export default function LoginScreen({ navigation }) {
 
     );
 }
+//navigation.navigate('Search')
+async function auth(login, password) {
+    console.log("login:", login)
+    console.log("pass: ", password)
+    console.log('entrei')
+    let user = await fetch('https://tevi-api-joaopedrofortes.vercel.app/api/auth', {
+        method: 'POST',
+        headers: new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }),
+        body: JSON.stringify({
+            "login": login,
+            "password": password
+        })
+
+    }).then(T => T.json()).then(console.log);
+
+
+}
 
 const styles = StyleSheet.create({
     inputView: {
@@ -61,11 +81,11 @@ const styles = StyleSheet.create({
     },
     inputs: {
         backgroundColor: 'white',
-        marginBottom: 10, 
-        fontSize: 15, 
-        borderRadius: 5, 
+        marginBottom: 10,
+        fontSize: 15,
+        borderRadius: 5,
         borderWidth: 1,
-        fontSize:20
+        fontSize: 20
     },
     loginText: {
         color: "white",
@@ -99,11 +119,11 @@ const styles = StyleSheet.create({
         borderWidth: 1
 
     },
-    
+
     image: {
         width: 200,
         height: 200,
-        marginTop:-80,
+        marginTop: -80,
         borderRadius: 100
     },
 

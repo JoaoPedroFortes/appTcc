@@ -91,7 +91,10 @@ function SearchScreen({ navigation }) {
           <Text>{dia.toString()}</Text>
         </View>
       </View>
+      <View>
 
+      <TouchableOpacity onPress={() => navigation.navigate('Home')}><Text>home</Text></TouchableOpacity>
+      </View>
     </View>
   )
 }

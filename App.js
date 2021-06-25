@@ -31,7 +31,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation, useRoute } from '@react-navigation/native';
 import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
 
 import CalendarStrip from 'react-native-calendar-strip';
@@ -55,6 +55,11 @@ const width = Dimensions.get('window').width;
 
 
 function SearchScreen({ navigation }) {
+
+const route = useRoute();
+const user = route.params
+
+ console.log("usuario: "+ user)
   const locale = {
     name: 'pt-br',
     config: brLocale
@@ -71,7 +76,7 @@ function SearchScreen({ navigation }) {
 
         <Text style={styles.titulo}>Te-vi</Text>
         <View style={styles.profileIcon}>
-          <TouchableOpacity onPress={() => navigation.navigate('Details')}><View><Image source={require('./assets/jp.jpeg')} style={{ width: 50, height: 50, borderRadius:100 }} /></View></TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Details',user)}><View><Image source={require('./assets/jp.jpeg')} style={{ width: 50, height: 50, borderRadius:100 }} /></View></TouchableOpacity>
         </View>
       </View>
       <View style={{ minHeight: 1, minWidth: 1, flex: 1 }}>

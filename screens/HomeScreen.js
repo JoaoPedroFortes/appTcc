@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+
+const axios = require('react-native-axios');
+
 import {
     SafeAreaView,
     StyleSheet,
@@ -31,6 +34,7 @@ import Icon from 'react-native-vector-icons'
 const azulClaro = "#2196f3";
 const width = Dimensions.get('window').width;
 export default function HomeScreen({ navigation }) {
+   
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: azulClaro }}>
             <View style={styles.fotoNoMeio}>

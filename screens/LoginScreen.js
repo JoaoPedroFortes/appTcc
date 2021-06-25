@@ -1,5 +1,8 @@
 
 import React, { Component, useState } from 'react';
+
+const axios = require('react-native-axios');
+
 import {
     SafeAreaView,
     StyleSheet,
@@ -27,6 +30,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
 
 
+
+
 export default function LoginScreen({ navigation }) {
 
     const [email, setEmail] = useState('joao');
@@ -38,10 +43,12 @@ export default function LoginScreen({ navigation }) {
                 <TextInput onChangeText={email => setEmail(email)} style={styles.inputs} placeholder=" Digite aqui seu e-mail" placeholderTextColor="gray"></TextInput>
                 <TextInput onChangeText={password => setPassword(password)} style={styles.inputs} placeholder=" Digite aqui sua senha" placeholderTextColor="gray" secureTextEntry></TextInput>
             </View>
+
             <Text>{password}</Text>
-            <TouchableOpacity style={styles.loginBtn} onPress={() => auth(email, password)} >
+            <TouchableOpacity style={styles.loginBtn} onPress={() => auth(email, password, navigation)} >
                 <Text style={styles.loginText}>Entrar</Text>
             </TouchableOpacity>
+
             <TouchableOpacity style={styles.cadBtn}>
                 <Text style={styles.loginCad}>Cadastre-se</Text>
             </TouchableOpacity>
@@ -52,24 +59,36 @@ export default function LoginScreen({ navigation }) {
     );
 }
 //navigation.navigate('Search')
-async function auth(login, password) {
-    console.log("login:", login)
-    console.log("pass: ", password)
-    console.log('entrei')
-    let user = await fetch('https://tevi-api-joaopedrofortes.vercel.app/api/auth', {
-        method: 'POST',
-        headers: new Headers({
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }),
-        body: JSON.stringify({
-            "login": login,
-            "password": password
-        })
+async function auth(login, password, navigation) {
+    try {
+        console.log("login:", login)
+        console.log("pass: ", password)
+        console.log('entrei')
+        await axios({
+            url: 'https://tevi-api-joaopedrofortes.vercel.app/api/auth',
+            method: 'POST',
+            data: {
+                login: login,
+                password: password
+            }
 
-    }).then(T => T.json()).then(console.log);
+        }).then((response)=>{
+           if(response.data !=false){
+                //console.log("bucetinha: " + response.data.id)
+               navigation.navigate('Search',response.data.id)
+           }
+          
+        });
 
+       
+        /*
+        if (user != false) {
+            navigation.navigate('Search',{"user":"joao"})
+        }*/
 
+    } catch (e) {
+        console.log(e)
+    }
 }
 
 const styles = StyleSheet.create({

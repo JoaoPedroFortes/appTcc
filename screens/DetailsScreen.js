@@ -38,7 +38,21 @@ import { NavigationContainer, useNavigation, useRoute } from '@react-navigation/
 import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
 
 
-
+/**
+ * 
+ *  <Text>Celular: </Text>
+                <TextInput textContentType="telephoneNumber"  value={data[0].celular} style={styles.inputForm}></TextInput>
+                <Text>Email de Contato: </Text>
+                <TextInput textContentType="emailAddress" value={data[0].email}style={styles.inputForm} ></TextInput>
+                <Text>Instagram: </Text>
+                <TextInput style={styles.inputForm}  value={data[0].instagram}></TextInput>
+                <Text>Facebook: </Text>
+                <TextInput style={styles.inputForm}  value={data[0].facebook}></TextInput>
+                <Text>Twitter: </Text>
+                <TextInput style={styles.inputForm}  value={data[0].twitter} ></TextInput>
+                <Text>Link Linkedin: </Text>
+                <TextInput style={styles.inputForm}  value={data[0].linkedin}></TextInput>
+ */
 
 const azulClaro = "#2196f3";
 const width = Dimensions.get('window').width;
@@ -51,53 +65,58 @@ export default function DetailsScreen({ navigation }) {
     const [data, setData] = useState([]);
 
 
-    useEffect(() => {
-
-        async function getDados() {
-            const id = route.params;
-
-
-            const { data } = await axios.post('https://tevi-api-joaopedrofortes.vercel.app/api/user/dadosContato', {
-                userId: id
+    const fetchData = async () => {
+        try {
+            const response = await axios.post('https://tevi-api-joaopedrofortes.vercel.app/api/user/dadosContato', {
+                userId: route.params
             }).then((response) => {
                 return response
             }, (error) => {
                 console.log(error)
             })
 
-            setData(data);
+            setData(response.data[0])
+        } catch (e) {
+            alert(e)
         }
+    }
 
-        getDados();
 
-    }, [])
+    useEffect(() => {
+        fetchData(data)
+    }, [data])
 
 
     return (
         <View style={{ flex: 1, alignItems: 'flex-start', justifyContent: 'flex-start' }}>
 
+            <Text> </Text>
             <View style={styles.avatar}>
                 <Image source={require('../assets/jp.jpeg')} style={styles.img} />
 
             </View>
-            <ScrollView style={{ width: width, padding: 20 }}>
 
-                <Text>Nome:{dados}</Text>
-                <TextInput  value={data[0].login}style={styles.inputForm} ></TextInput>
-                <Text>Celular: </Text>
-                <TextInput textContentType="telephoneNumber"  value={data[0].celular} style={styles.inputForm}></TextInput>
-                <Text>Email de Contato: </Text>
-                <TextInput textContentType="emailAddress" value={data[0].email}style={styles.inputForm} ></TextInput>
-                <Text>Instagram: </Text>
-                <TextInput style={styles.inputForm}  value={data[0].instagram}></TextInput>
-                <Text>Facebook: </Text>
-                <TextInput style={styles.inputForm}  value={data[0].facebook}></TextInput>
-                <Text>Twitter: </Text>
-                <TextInput style={styles.inputForm}  value={data[0].twitter} ></TextInput>
-                <Text>Link Linkedin: </Text>
-                <TextInput style={styles.inputForm}  value={data[0].linkedin}></TextInput>
+            <View style={{ borderRadius: 50 }}>
+                <ScrollView style={{ width: width, padding: 20 }}>
 
-            </ScrollView>
+                    <Text>Nome:</Text>
+                    <TextInput value="jose" style={styles.inputForm} ></TextInput>
+                    <Text>Celular: </Text>
+                    <TextInput textContentType="telephoneNumber" value={data.celular} style={styles.inputForm}></TextInput>
+                    <Text>Email de Contato: </Text>
+                    <TextInput textContentType="emailAddress" value={data.email} style={styles.inputForm} ></TextInput>
+                    <Text>Instagram: </Text>
+                    <TextInput style={styles.inputForm} value={data.instagram}></TextInput>
+                    <Text>Facebook: </Text>
+                    <TextInput style={styles.inputForm} value={data.facebook}></TextInput>
+                    <Text>Twitter: </Text>
+                    <TextInput style={styles.inputForm} value={data.twitter} ></TextInput>
+                    <Text>Link Linkedin: </Text>
+                    <TextInput style={styles.inputForm} value={data.linkedin}></TextInput>
+
+                </ScrollView>
+
+            </View>
             <View>
                 <TouchableOpacity><Text>Salvar</Text></TouchableOpacity>
             </View>
@@ -136,7 +155,8 @@ const styles = StyleSheet.create({
     img: {
         width: 150,
         height: 150,
-        borderRadius: 100
+        borderRadius: 100,
+        alignSelf: 'center'
     },
 
     avatar: {

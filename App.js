@@ -23,6 +23,8 @@ import {
 } from 'react-native';
 import * as RNLocalize from "react-native-localize";
 
+import { Avatar, Card, Divider, Paragraph, Title } from "react-native-paper";
+
 import {
   Header,
   LearnMoreLinks,
@@ -53,13 +55,48 @@ const width = Dimensions.get('window').width;
 
 
 
+const users = [
+  {
+    avatar: './assets/jp.jpeg',
+    name: 'João Pedro Fortes',
+    data: 'visto em 12-06-2021'
+  },
+  {
+    avatar: './assets/jp.jpeg',
+    name: 'ana',
+    data: 'visto em 12-06-2021'
+  },
+  {
+    avatar: './assets/jp.jpeg',
+    name: 'astolfo',
+    data: 'visto em 12-06-2021'
+  },
+  {
+    avatar: './assets/jp.jpeg',
+    name: 'geraldo',
+    data: 'visto em 12-06-2021'
+  },
+  {
+    avatar: './assets/jp.jpeg',
+    name: 'claudia',
+    data: 'visto em 12-06-2021'
+  },
+  {
+    name: 'camila',
+    data: 'visto em 12-06-2021'
+  },
+  {
+    name: 'karina',
+    data: 'visto em 12-06-2021'
+  },
+]
 
 function SearchScreen({ navigation }) {
 
-const route = useRoute();
-const user = route.params
+  const route = useRoute();
+  const user = route.params
 
- console.log("usuario: "+ user)
+  console.log("usuario: " + user)
   const locale = {
     name: 'pt-br',
     config: brLocale
@@ -70,36 +107,58 @@ const user = route.params
   const selected = date => {
     setDia(date)
   }
+
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#f1f1f1' }}>
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#e4d5d8' }}>
       <View style={styles.header}>
 
-        <Text style={styles.titulo}>Te-vi</Text>
+        <Text style={styles.titulo}></Text>
         <View style={styles.profileIcon}>
-          <TouchableOpacity onPress={() => navigation.navigate('Details',user)}><View><Image source={require('./assets/jp.jpeg')} style={{ width: 50, height: 50, borderRadius:100 }} /></View></TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Details', user)}><View><Image source={require('./assets/jp.jpeg')} style={{ width: 50, height: 50}} /></View></TouchableOpacity>
         </View>
       </View>
       <View style={{ minHeight: 1, minWidth: 1, flex: 1 }}>
         <CalendarStrip
           scrollable
           style={{ height: 110, paddingTop: 20, paddingLeft: 20, paddingBottom: 8, width: width }}
-          calendarColor={azulClaro}
-          calendarHeaderStyle={{ color: 'black' }}
-          dateNumberStyle={{ color: 'black' }}
-          dateNameStyle={{ color: 'black' }}
+          calendarColor={'#212121'}
+          calendarHeaderStyle={{ color: 'white' }}
+          dateNumberStyle={{ color: 'white' }}
+          dateNameStyle={{ color: 'white' }}
           iconContainer={{ flex: 0.1 }}
           maxDate={now}
           onDateSelected={selected}
 
         />
-        <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center', backgroundColor: 'white', paddingTop: 20 }}>
-          <Text>{dia.toString()}</Text>
-        </View>
-      </View>
-      <View>
+        <ScrollView style={{ backgroundColor: Colors.black }}>
 
-      <TouchableOpacity onPress={() => navigation.navigate('Home')}><Text>home</Text></TouchableOpacity>
+          {users.map((u, i) => {
+            return (
+              <View key={i} >
+                <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+
+                <Card>
+                  <Card.Content style={{ backgroundColor: Colors.white, flexWrap: 'nowrap' }}>
+
+                    <View style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
+                      <Image source={require('./assets/jp.jpeg')} style={{ width: 80, height: 80, borderRadius: 100 }} />
+                      <View  style={{ padding:15}}>
+                        <Title>{u.name}</Title>
+                        <Paragraph> {u.data}</Paragraph>
+                      </View>
+
+                    </View>
+                  </Card.Content>
+                </Card>
+                </TouchableOpacity>
+
+              </View>
+            )
+          })}
+
+        </ScrollView>
       </View>
+     
     </View>
   )
 }
@@ -152,15 +211,15 @@ const styles = StyleSheet.create({
     width: width,
     flexWrap: 'nowrap',
     paddingBottom: 20,
-    backgroundColor:"#2196f3",
-    borderBottomWidth:1,
+    backgroundColor: "#2196f3",
+    borderBottomWidth: 1,
   },
 
   titulo: {
     fontSize: 35,
     color: Colors.white,
-    paddingTop:10,
-    paddingLeft:10
+    paddingTop: 10,
+    paddingLeft: 10
   },
 
   profileIcon: {
@@ -168,7 +227,7 @@ const styles = StyleSheet.create({
     height: 40,
     width: 50,
     marginTop: -40,
-    right:10
+    right: 10
   },
 
   scrollView: {

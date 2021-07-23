@@ -18,7 +18,7 @@ import {
 } from 'react-native';
 
 
-
+import Icon from 'react-native-vector-icons/FontAwesome';
 import {
     Header,
     LearnMoreLinks,
@@ -29,7 +29,7 @@ import {
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
-import Icon from 'react-native-vector-icons'
+
 
 const azulClaro = "#2196f3";
 const width = Dimensions.get('window').width;
@@ -46,11 +46,18 @@ export default function HomeScreen({ navigation }) {
 
                 <Text style={styles.nome}> João Pedro Fortes</Text>
 
-                <View style={{ alignItems: 'center', paddingTop: 20 }}>
+                <View style={{ paddingTop: 20 }}>
                     <ScrollView>
 
-                        <View>
-                            <Text style={{color: Colors.white}}>oiiii</Text>
+                        <View style={styles.icons}>
+                            <Icon style={styles.icon} name="facebook" size={50} color="white" />
+                            <Icon style={styles.icon} name="instagram" size={50} color="white" />
+                            <Icon style={styles.icon} name="linkedin" size={50} color="white" />
+                            <Icon style={styles.icon} name="whatsapp" size={50} color="white" />
+                            <Icon style={styles.icon} name="twitter" size={50} color="white" />
+                            <Icon style={styles.icon} name="github" size={50} color="white" />
+                            <Icon style={styles.icon} name="home" size={50} color="white" />
+                            <Icon style={styles.icon} name="snapchat" size={50} color="white" />
                         </View>
 
 
@@ -84,6 +91,18 @@ const styles = StyleSheet.create({
         marginTop: 100,
 
     },
+    icons: {
+        alignSelf:'center',
+        width: width,
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        flexWrap: 'wrap'
+    },
+
+    icon:{
+        padding:20
+    },
+
     container: {
         flex: 1,
         backgroundColor: '#212121',
@@ -110,6 +129,8 @@ const styles = StyleSheet.create({
     nome: {
         color: 'white',
         alignSelf: 'center',
-        marginTop: 90
+        marginTop: 90,
+        fontSize:20,
+        marginBottom:20
     }
 });

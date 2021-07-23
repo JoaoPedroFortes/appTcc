@@ -41,7 +41,7 @@ import moment, { isMoment, locale } from 'moment';
 import { } from 'moment-timezone';
 import { State } from 'react-native-gesture-handler';
 import 'moment/locale/pt-br';
-
+import Icon from 'react-native-vector-icons/FontAwesome';
 import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
 import DetailsScreen from './screens/DetailsScreen';
@@ -107,26 +107,31 @@ function SearchScreen({ navigation }) {
   const selected = date => {
     setDia(date)
   }
-
+  /*
+    let message = ()=>{
+      if(now.getTimeZone)
+    }
+  */
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#e4d5d8' }}>
       <View style={styles.header}>
-
-        <Text style={styles.titulo}></Text>
         <View style={styles.profileIcon}>
-          <TouchableOpacity onPress={() => navigation.navigate('Details', user)}><View><Image source={require('./assets/jp.jpeg')} style={{ width: 50, height: 50}} /></View></TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Details', user)}><View><Icon name="cog" size={30} color="white" /></View></TouchableOpacity>
         </View>
       </View>
       <View style={{ minHeight: 1, minWidth: 1, flex: 1 }}>
         <CalendarStrip
           scrollable
-          style={{ height: 110, paddingTop: 20, paddingLeft: 20, paddingBottom: 8, width: width }}
+          style={{ height: 110, paddingTop: 20, paddingLeft: 10, paddingRight: 10, paddingBottom: 8, width: width }}
           calendarColor={'#212121'}
           calendarHeaderStyle={{ color: 'white' }}
           dateNumberStyle={{ color: 'white' }}
           dateNameStyle={{ color: 'white' }}
           iconContainer={{ flex: 0.1 }}
           maxDate={now}
+          highlightDateNumberStyle={{ color: azulClaro }}
+          highlightDateNameStyle={{ color: azulClaro }}
+          daySelectionAnimation={{ type: 'border', duration: 200, borderWidth: 1, borderHighlightColor: azulClaro }}
           onDateSelected={selected}
 
         />
@@ -137,19 +142,19 @@ function SearchScreen({ navigation }) {
               <View key={i} >
                 <TouchableOpacity onPress={() => navigation.navigate('Home')}>
 
-                <Card>
-                  <Card.Content style={{ backgroundColor: Colors.white, flexWrap: 'nowrap' }}>
+                  <Card>
+                    <Card.Content style={{ backgroundColor: Colors.white, flexWrap: 'nowrap' }}>
 
-                    <View style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
-                      <Image source={require('./assets/jp.jpeg')} style={{ width: 80, height: 80, borderRadius: 100 }} />
-                      <View  style={{ padding:15}}>
-                        <Title>{u.name}</Title>
-                        <Paragraph> {u.data}</Paragraph>
+                      <View style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
+                        <Image source={require('./assets/jp.jpeg')} style={{ width: 80, height: 80, borderRadius: 100 }} />
+                        <View style={{ padding: 15 }}>
+                          <Title>{u.name}</Title>
+                          <Paragraph> {u.data}</Paragraph>
+                        </View>
+
                       </View>
-
-                    </View>
-                  </Card.Content>
-                </Card>
+                    </Card.Content>
+                  </Card>
                 </TouchableOpacity>
 
               </View>
@@ -158,7 +163,7 @@ function SearchScreen({ navigation }) {
 
         </ScrollView>
       </View>
-     
+
     </View>
   )
 }
@@ -211,23 +216,17 @@ const styles = StyleSheet.create({
     width: width,
     flexWrap: 'nowrap',
     paddingBottom: 20,
-    backgroundColor: "#2196f3",
+    backgroundColor: "#212121",
     borderBottomWidth: 1,
   },
 
-  titulo: {
-    fontSize: 35,
-    color: Colors.white,
-    paddingTop: 10,
-    paddingLeft: 10
-  },
+
 
   profileIcon: {
     alignSelf: 'flex-end',
-    height: 40,
     width: 50,
-    marginTop: -40,
-    right: 10
+    marginTop: 10,
+  
   },
 
   scrollView: {

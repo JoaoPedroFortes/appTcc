@@ -14,6 +14,7 @@ import {
     StatusBar,
     Touchable,
     Image,
+    Alert,
     TouchableOpacity,
 } from 'react-native';
 
@@ -34,17 +35,17 @@ import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/
 
 export default function LoginScreen({ navigation }) {
 
-    const [email, setEmail] = useState('jose@gmail');
-    const [password, setPassword] = useState('senhaJose');
+    const [email, setEmail] = useState('joaopbfortes@gmail.com');
+    const [password, setPassword] = useState('senha1234');
     return (
         <View style={{ flex: 1, backgroundColor: "#212121", paddingTop: 100, alignItems: 'center', justifyContent: 'center', }}>
             <Image source={require("../assets/logoTeVi.png")} style={styles.image}></Image>
             <View style={styles.inputView}>
-                <TextInput onChangeText={email => setEmail(email.toLowerCase())} style={styles.inputs}  placeholder=" Digite aqui seu e-mail" placeholderTextColor="gray"></TextInput>
+                <TextInput onChangeText={email => setEmail(email.toLowerCase())} style={styles.inputs} placeholder=" Digite aqui seu e-mail" placeholderTextColor="gray"></TextInput>
                 <TextInput onChangeText={password => setPassword(password)} style={styles.inputs} placeholder=" Digite aqui sua senha" placeholderTextColor="gray" secureTextEntry></TextInput>
             </View>
 
-           
+
             <TouchableOpacity style={styles.loginBtn} onPress={() => auth(email, password, navigation)} >
                 <Text style={styles.loginText}>Entrar</Text>
             </TouchableOpacity>
@@ -72,15 +73,17 @@ async function auth(login, password, navigation) {
                 password: password
             }
 
-        }).then((response)=>{
-           if(response.data !=false){
-                //console.log("bucetinha: " + response.data.id)
-               navigation.navigate('Search',response.data.id)
-           }
-          
+        }).then((response) => {
+            if (response.data != false) {
+                
+                navigation.navigate('Search', response.data.id)
+            } else {
+                Alert.alert('Erro de Login', 'Ops... Verifique sua senha e tente novamente!');
+            }
+
         });
 
-       
+
         /*
         if (user != false) {
             navigation.navigate('Search',{"user":"joao"})

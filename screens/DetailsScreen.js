@@ -83,8 +83,34 @@ export default function DetailsScreen({ navigation }) {
 
 
     useEffect(() => {
+        console.log("oi")
         fetchData(data)
-    }, [data])
+    }, [data === []])
+
+
+
+    const handleChangeCelular = e => {
+        setData(old => (
+            {
+                ...old,
+                celular: e
+            }));
+    };
+
+    const handleChangeEmail = e => {
+        setData(old => (
+            {
+                ...old,
+                email: e
+            }));
+    };
+    const handleChangeInsta = e => {
+        setData(old => (
+            {
+                ...old,
+                instagram: e
+            }))};
+
 
 
     return (
@@ -96,17 +122,17 @@ export default function DetailsScreen({ navigation }) {
 
             </View>
 
-            <View style={{ borderRadius: 50 }}>
+            <View>
                 <ScrollView style={{ width: width, padding: 20 }}>
 
                     <Text>Nome:</Text>
                     <TextInput value="jose" style={styles.inputForm} ></TextInput>
                     <Text>Celular: </Text>
-                    <TextInput textContentType="telephoneNumber" value={data.celular} style={styles.inputForm}></TextInput>
+                    <TextInput textContentType="telephoneNumber" id="celular" value={data.celular} name="celular" onChangeText={handleChangeCelular} style={styles.inputForm}></TextInput>
                     <Text>Email de Contato: </Text>
-                    <TextInput textContentType="emailAddress" value={data.email} style={styles.inputForm} ></TextInput>
+                    <TextInput textContentType="emailAddress" value={data.email} style={styles.inputForm} onChangeText={handleChangeEmail} ></TextInput>
                     <Text>Instagram: </Text>
-                    <TextInput style={styles.inputForm} value={data.instagram}></TextInput>
+                    <TextInput style={styles.inputForm} value={data.instagram} onChangeText={handleChangeInsta}></TextInput>
                     <Text>Facebook: </Text>
                     <TextInput style={styles.inputForm} value={data.facebook}></TextInput>
                     <Text>Twitter: </Text>

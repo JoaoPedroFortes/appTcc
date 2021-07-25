@@ -140,7 +140,7 @@ function SearchScreen({ navigation }) {
           {users.map((u, i) => {
             return (
               <View key={i} >
-                <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Home',user)}>
 
                   <Card>
                     <Card.Content style={{ backgroundColor: Colors.white, flexWrap: 'nowrap' }}>

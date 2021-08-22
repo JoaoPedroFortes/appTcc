@@ -10,11 +10,15 @@ import React, { Component, useState, useEffect } from 'react';
 
 const axios = require('react-native-axios');
 
+
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 import {
     SafeAreaView,
     StyleSheet,
     ScrollView,
     View,
+    NativeModules,
     Text,
     TextInput,
     Button,
@@ -38,21 +42,22 @@ import { NavigationContainer, useNavigation, useRoute } from '@react-navigation/
 import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
 
 
-/**
- * 
- *  <Text>Celular: </Text>
-                <TextInput textContentType="telephoneNumber"  value={data[0].celular} style={styles.inputForm}></TextInput>
-                <Text>Email de Contato: </Text>
-                <TextInput textContentType="emailAddress" value={data[0].email}style={styles.inputForm} ></TextInput>
-                <Text>Instagram: </Text>
-                <TextInput style={styles.inputForm}  value={data[0].instagram}></TextInput>
-                <Text>Facebook: </Text>
-                <TextInput style={styles.inputForm}  value={data[0].facebook}></TextInput>
-                <Text>Twitter: </Text>
-                <TextInput style={styles.inputForm}  value={data[0].twitter} ></TextInput>
-                <Text>Link Linkedin: </Text>
-                <TextInput style={styles.inputForm}  value={data[0].linkedin}></TextInput>
- */
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
+const getUserId = async () => {
+
+    try {
+        const value = await AsyncStorage.getItem('@storage_Key')
+        if (value !== null) {
+            return value
+        }
+    } catch (e) {
+        // error reading value
+    }
+}
+
+
 
 const azulClaro = "#2196f3";
 const width = Dimensions.get('window').width;
@@ -60,16 +65,19 @@ const width = Dimensions.get('window').width;
 const dados = [];
 
 export default function DetailsScreen({ navigation }) {
-    const route = useRoute();
 
+    const route = useRoute();
     const [data, setData] = useState([]);
 
 
+
     const fetchData = async () => {
+        console.log("aoba" + route.params)
         try {
             const response = await axios.post('https://tevi-api-joaopedrofortes.vercel.app/api/user/dadosContato', {
                 userId: route.params
             }).then((response) => {
+                console.log("aba", + response)
                 return response
             }, (error) => {
                 console.log(error)
@@ -109,7 +117,21 @@ export default function DetailsScreen({ navigation }) {
             {
                 ...old,
                 instagram: e
-            }))};
+            }))
+    };
+
+    let removeValue = async () => {
+        try {
+            await AsyncStorage.clear()
+        } catch (e) {
+            // remove error
+        }
+    }
+
+    const deslogar = (navigation) => {
+        removeValue();
+     //   navigation.navigate('Login')
+    }
 
 
 
@@ -118,15 +140,25 @@ export default function DetailsScreen({ navigation }) {
 
             <Text> </Text>
             <View style={styles.avatar}>
-                <Image source={require('../assets/jp.jpeg')} style={styles.img} />
+                <View style={{ width: width / 2 }}>
+                    <Image source={require('../assets/jp.jpeg')} style={styles.img} />
+                </View>
 
+                <View style={{ width: width / 3 }}>
+                    <TouchableOpacity>
+                        <View>
+                            <Icon style={{ alignSelf: 'flex-end' }} name="sign-out" size={30} color="red" onPress={() => { deslogar(navigation) }} />
+                        </View>
+                    </TouchableOpacity>
+
+                </View>
             </View>
 
             <View>
                 <ScrollView style={{ width: width, padding: 20 }}>
 
                     <Text>Nome:</Text>
-                    <TextInput value="jose" style={styles.inputForm} ></TextInput>
+                    <TextInput value={data.name} style={styles.inputForm} ></TextInput>
                     <Text>Celular: </Text>
                     <TextInput textContentType="telephoneNumber" id="celular" value={data.celular} name="celular" onChangeText={handleChangeCelular} style={styles.inputForm}></TextInput>
                     <Text>Email de Contato: </Text>
@@ -181,14 +213,14 @@ const styles = StyleSheet.create({
     img: {
         width: 150,
         height: 150,
-        borderRadius: 100,
-        alignSelf: 'center'
+        //  borderRadius: 100,
+        alignSelf: 'flex-start'
     },
 
     avatar: {
-        padding: 10,
+        padding: 25,
         width: width,
-        backgroundColor: azulClaro
+        flexDirection: 'row'
     },
 
     inputForm: {

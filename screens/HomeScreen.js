@@ -36,12 +36,11 @@ const azulClaro = "#2196f3";
 const width = Dimensions.get('window').width;
 export default function HomeScreen({ navigation }) {
 
-
     const route = useRoute();
 
     const [data, setData] = useState([]);
 
-    const msg  = 'Olá!%20achei%20seu%20numero%20no%20te%20vi!!!%20Como%20vai?'
+    const msg = 'Olá!%20achei%20seu%20numero%20no%20te%20vi!!!%20Como%20vai?'
 
     const fetchData = async () => {
         try {
@@ -52,7 +51,6 @@ export default function HomeScreen({ navigation }) {
             }, (error) => {
                 console.log(error)
             })
-
             setData(response.data[0])
         } catch (e) {
             alert(e)
@@ -97,19 +95,19 @@ export default function HomeScreen({ navigation }) {
                                 </TouchableOpacity>
                             </View>
 
-                            
+
 
                             <Icon style={styles.icon} name="linkedin" size={40} color="white" />
 
-                            
+
                             <View>
-                                <TouchableOpacity onPress={() => Linking.openURL('whatsapp://send?text='+msg+'&phone=+55'+data.celular)}>
+                                <TouchableOpacity onPress={() => Linking.openURL('whatsapp://send?text=' + msg + '&phone=+55' + data.celular)}>
                                     <View>
-                                    <Icon style={styles.icon} name="whatsapp" size={40} color="white" />
+                                        <Icon style={styles.icon} name="whatsapp" size={40} color="white" />
                                     </View>
                                 </TouchableOpacity>
                             </View>
-                          
+
                             <Icon style={styles.icon} name="twitter" size={40} color="white" />
                             <Icon style={styles.icon} name="github" size={40} color="white" />
                             <Icon style={styles.icon} name="home" size={40} color="white" />

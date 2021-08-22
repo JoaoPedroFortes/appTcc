@@ -3,6 +3,7 @@ import React, { Component, useState } from 'react';
 
 const axios = require('react-native-axios');
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
     SafeAreaView,
     StyleSheet,
@@ -33,6 +34,20 @@ import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/
 
 
 
+/*
+const getUserId = async () => {
+    try {
+      //  const value = await AsyncStorage.getItem('@storage_Key')
+        if (value !== null) {
+            return value
+        }
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+console.log(getUserId())
+*/
 export default function LoginScreen({ navigation }) {
 
     const [email, setEmail] = useState('joaopbfortes@gmail.com');
@@ -59,7 +74,19 @@ export default function LoginScreen({ navigation }) {
 
     );
 }
-//navigation.navigate('Search')
+
+
+const storeData = async (value) => {
+    console.log("salvando " + value)
+    try {
+        await AsyncStorage.setItem('@storage_Key', value)
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+
+
 async function auth(login, password, navigation) {
     try {
         console.log("login:", login)
@@ -75,7 +102,7 @@ async function auth(login, password, navigation) {
 
         }).then((response) => {
             if (response.data != false) {
-                
+               // storeData(JSON.stringify(response.data.id))
                 navigation.navigate('Search', response.data.id)
             } else {
                 Alert.alert('Erro de Login', 'Ops... Verifique sua senha e tente novamente!');
